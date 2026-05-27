@@ -132,6 +132,7 @@ REST_FRAMEWORK = {
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:5173',
     'https://expense-tracker-frontend-drylf7pj6-ilias-syrmanoglou-s-projects.vercel.app',
+    'https://expense-tracker-frontend-nine-eta.vercel.app'
 ]
 
 CORS_ALLOW_CREDENTIALS = True
