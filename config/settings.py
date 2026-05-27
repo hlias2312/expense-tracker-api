@@ -15,6 +15,8 @@ DEBUG = True
 
 ALLOWED_HOSTS = ["expense-tracker-api-production-7af4.up.railway.app", "localhost"]
 
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+
 
 # Application definition
 
