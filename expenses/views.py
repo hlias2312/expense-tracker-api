@@ -1,4 +1,8 @@
 from rest_framework import viewsets, permissions
+from django.contrib.auth.models import User
+from rest_framework.decorators import api_view, permission_classes
+from rest_framework.permissions import AllowAny
+from rest_framework.authtoken.models import Token
 from rest_framework.decorators import action
 from rest_framework.response import Response
 from django.db.models import Sum
@@ -50,3 +54,21 @@ class ExpenseViewSet(viewsets.ModelViewSet):
             'total': total,
             'by_category': list(by_category)
         })
+    
+
+
+@api_view(['POST'])
+@permission_classes([AllowAny])
+def register(request):
+    username = request.data.get('username')
+    password = request.data.get('password')
+
+    if not username or not password:
+        return Response({'error': 'Username and password required'}, status=400)
+
+    if User.objects.filter(username=username).exists():
+        return Response({'error': 'Username already exists'}, status=400)
+
+    user = User.objects.create_user(username=username, password=password)
+    token, _ = Token.objects.get_or_create(user=user)
+    return Response({'token': token.key}, status=201)
